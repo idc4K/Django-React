@@ -29,8 +29,8 @@ class TodoListApiView(APIView):
         Create the Todo with given todo data
         '''
         data = {
-            'task': request.data.get('task'), 
-            'completed': request.data.get('completed'), 
+            'nom': request.data.get('nom'), 
+            'prenom': request.data.get('prenom'), 
             'user': request.user.id
         }
         serializer = TodoSerializer(data=data)
