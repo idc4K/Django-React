@@ -19,7 +19,7 @@ class TodoListApiView(APIView):
         '''
         List all the todo items for given requested user
         '''
-        todos = Table.objects.filter(user = request.user.id)
+        todos = Table.objects.all()
         serializer = TodoSerializer(todos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
