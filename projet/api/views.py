@@ -10,13 +10,13 @@ from .models import Table
     # add permission to check if user is authenticated
 
 @api_view(['GET'])
-def getData(request):
+def getdata(request):
     donnee = Table.objects.all()
     serializer = OptionSerializer(donnee, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
-def PostD(request):
+def postd(request):
     donnee = OptionSerializer(data = request.data)
     if donnee.is_valid():
         donnee.save()
