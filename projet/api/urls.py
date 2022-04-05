@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path,include
-from .views import TodoListApiView
+from . import views
 
 urlpatterns = [
-    path('', TodoListApiView.as_view()),
+    path('', views.getData),
     
 ]
