@@ -13,7 +13,14 @@ from .models import Table
 def getData(request):
     donnee = Table.objects.all()
     serializer = OptionSerializer(donnee, many=True)
-    return Response(serializer.data)   
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def PostD(request):
+    donnee = OptionSerializer(data = request.data)
+    if donnee.is_valid():
+        donnee.save()
+    return Response(donnee.data)
 # def api_home(request):
 #     objet = Table.objects.all()
 #     json = serializers.serialize("json", objet)
