@@ -29,7 +29,7 @@ class App extends React.Component {
 
     fetchTasks(){
       console.log("recuperation fetch reussie");
-      fetch('http://localhost:8000/')
+      fetch('http://localhost:8000/data')
       
       .then(response => response.json())
       .then(data => this.setState({
