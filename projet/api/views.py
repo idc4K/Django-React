@@ -10,13 +10,24 @@ from .models import Table
     # add permission to check if user is authenticated
 
 @api_view(['GET'])
+def all(request):
+	api_urls = {
+		'List':'/task-list/',
+		'Detail Vue':'/task-detail/<str:pk>/',
+		'Create':'/task-create/',
+		'Update':'/task-update/<str:pk>/',
+		'Delete':'/task-delete/<str:pk>/',
+		}
+
+	return Response(api_urls)
+@api_view(['GET'])
 def getdata(request):
     donnee = Table.objects.all()
     serializer = OptionSerializer(donnee, many=True)
     return Response(serializer.data)
 
 @api_view(['POST'])
-def postd(request):
+def taskcreate(request):
     donnee = OptionSerializer(data = request.data)
     if donnee.is_valid():
         donnee.save()
