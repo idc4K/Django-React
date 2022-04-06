@@ -28,17 +28,19 @@ class App extends React.Component {
 
     fetchTasks(){
       console.log("recuperation fetch reussie");
-      fetch('http://localhost:8000/');
-      .then(response => response.json())
-      .then(data => 
+      fetch('http://localhost:8000/')
       
-        console.log("data", data)
-      )
-      )
+      .then(response => response.json())
+      .then(data => this.setState({
+        todoList:data
+      }))
+      
     }
       
     
     render(){
+
+      var tasks = this.state.todoList;
       return(
         <div className='conatiner'>
             <div className='task-container'>
@@ -58,7 +60,14 @@ class App extends React.Component {
                        </div>
                     </form>
                     <div id='list-wrapper'>
-
+                       {tasks.map(function(task,index){
+                         return(
+                           <div key={index} className="task-wrapper flex-wrapper" >
+                                <span>{task.nom} - {task.prenom}</span>
+                             
+                           </div>
+                         )
+                       })}
                     </div>
                </div>
             </div>
