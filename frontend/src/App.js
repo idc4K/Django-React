@@ -20,6 +20,7 @@ class App extends React.Component {
       }
       this.fetchTasks = this.fetchTasks.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentWillMount(){
       this.fetchTasks();
@@ -42,8 +43,18 @@ class App extends React.Component {
       var value = e.target.value;
       console.log("name:", name);
       console.log("value :", value);
+      this.setState({
+        activeItems:{
+          ...this.state.activeItems,
+          title:value
+        }
+      })
     }
-    
+    handleSubmit(e){
+      e.preventDefault();
+      console.log("ITEM:", this.state.activeItems);
+
+    }
     render(){
 
       var tasks = this.state.todoList;
@@ -51,7 +62,7 @@ class App extends React.Component {
         <div className='conatiner'>
             <div className='task-container'>
                <div className='form-wrapper'>
-                    <form id="form">
+                    <form onSubmit={this.handleSubmit} id="form">
                        <div className='flex-wrapper'>
                           <div style={{flex:6}}>
                               <br></br>
