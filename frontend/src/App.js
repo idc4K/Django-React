@@ -13,13 +13,15 @@ class App extends React.Component {
             id:null,
             nom:"",
             prenom:"",
+          
             completed:false
 
           },
           editing:false,
       }
       this.fetchTasks = this.fetchTasks.bind(this);
-      this.handleChange = this.handleChange.bind(this);
+      this.handleChangeN = this.handleChangeN.bind(this);
+      this.handleChangeP = this.handleChangeP.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentWillMount(){
@@ -38,7 +40,7 @@ class App extends React.Component {
       
     }
       
-    handleChange(e){
+    handleChangeN(e){
       var name = e.target.name;
       var value = e.target.value;
       console.log("name:", name);
@@ -46,14 +48,49 @@ class App extends React.Component {
       this.setState({
         activeItems:{
           ...this.state.activeItems,
-          title:value
+          nom:value
+        }
+      })
+     
+    }
+
+    handleChangeP(e){
+      var name = e.target.name;
+      var value = e.target.value;
+      console.log("name:", name);
+      console.log("value :", value);
+      this.setState({
+        activeItems:{
+          ...this.state.activeItems,
+          prenom:value
         }
       })
     }
     handleSubmit(e){
       e.preventDefault();
       console.log("ITEM:", this.state.activeItems);
+      var url = 'http://localhost:8000/task-create/';
+      fetch(url,{
+        method:'POST',
+        headers:{
+          'content-type':'application/json'
 
+        },
+        body:JSON.stringify(this.state.activeItems)
+      }).then((response) =>{
+        this.fetchTasks();
+        this.setState({
+          activeItems:{
+            id:null,
+            nom:"",
+            prenom:"",
+            completed:false
+          }
+        });
+
+      }).catch(function(error){
+        console.log('Error',error);
+      });
     }
     render(){
 
@@ -66,9 +103,9 @@ class App extends React.Component {
                        <div className='flex-wrapper'>
                           <div style={{flex:6}}>
                               <br></br>
-                              <input onChange={this.handleChange} className='form-control' id="nom" type="text" placeholder='nom' name='nom'/>
+                              <input onChange={this.handleChangeN} className='form-control' id="nom" type="text" placeholder='nom' name='nom'/>
                               <br></br>
-                              <input  onChange={this.handleChange} className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom'/>
+                              <input  onChange={this.handleChangeP} className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom'/>
                           </div>
 
                           <div style={{flex:1}}>
