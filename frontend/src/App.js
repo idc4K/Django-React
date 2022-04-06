@@ -86,11 +86,13 @@ class App extends React.Component {
     }
     handleSubmit(e){
       e.preventDefault();
+      var csrftoken = this.getCookie('csrftoken')
       console.log("ITEM:", this.state.activeItems);
       var url = 'http://localhost:8000/task-create/';
       fetch(url,{
         method:'POST',
         headers:{
+          'X-CSRFToken':csrftoken,
           'content-type':'application/json'
 
         },
@@ -121,9 +123,9 @@ class App extends React.Component {
                        <div className='flex-wrapper'>
                           <div style={{flex:6}}>
                               <br></br>
-                              <input onChange={this.handleChangeN} className='form-control' id="nom" type="text" placeholder='nom' name='nom'/>
+                              <input onChange={this.handleChangeN} className='form-control' id="nom" type="text" placeholder='nom' name='nom' value={this.state.activeItems.nom}/>
                               <br></br>
-                              <input  onChange={this.handleChangeP} className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom'/>
+                              <input  onChange={this.handleChangeP} className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom' value={this.state.activeItems.prenom}/>
                           </div>
 
                           <div style={{flex:1}}>
