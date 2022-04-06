@@ -19,7 +19,7 @@ class App extends React.Component {
           editing:false,
       }
       this.fetchTasks = this.fetchTasks.bind(this);
-
+      this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount(){
       this.fetchTasks();
@@ -37,6 +37,12 @@ class App extends React.Component {
       
     }
       
+    handleChange(e){
+      var name = e.target.name;
+      var value = e.target.value;
+      console.log("name:", name);
+      console.log("value :", value);
+    }
     
     render(){
 
@@ -49,9 +55,9 @@ class App extends React.Component {
                        <div className='flex-wrapper'>
                           <div style={{flex:6}}>
                               <br></br>
-                              <input  className='form-control' id="nom" type="text" placeholder='nom' name='nom'/>
+                              <input onChange={this.handleChange} className='form-control' id="nom" type="text" placeholder='nom' name='nom'/>
                               <br></br>
-                              <input  className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom'/>
+                              <input  onChange={this.handleChange} className='form-control' id="prenom" type="text" placeholder='prenom' name='prenom'/>
                           </div>
 
                           <div style={{flex:1}}>
