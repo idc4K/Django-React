@@ -26,12 +26,35 @@ def getdata(request):
     serializer = OptionSerializer(donnee, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def taskdetail(request, pk):
+	donnee = Table.objects.get(id=pk)
+	serializer = OptionSerializer(donnee, many=False)
+	return Response(serializer.data)
+
 @api_view(['POST'])
 def taskcreate(request):
     donnee = OptionSerializer(data = request.data)
     if donnee.is_valid():
         donnee.save()
     return Response(donnee.data)
+
+def taskupdate(request, pk):
+	donnee = Table.objects.get(id=pk)
+	serializer = OptionSerializer(instance=donnee, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+
+	return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def taskdelete(request, pk):
+	donnee = Table.objects.get(id=pk)
+	donnee.delete()
+
+	return Response('Item succsesfully delete!')
 # def api_home(request):
 #     objet = Table.objects.all()
 #     json = serializers.serialize("json", objet)

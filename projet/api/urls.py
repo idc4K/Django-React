@@ -5,10 +5,10 @@ from . import views
 urlpatterns = [
     path('', views.all,name="all"),
     path('data/', views.getdata,name="getdata"),
-	# path('task-detail/<str:pk>/', views.taskDetail, name="task-detail"),
+	path('task-detail/<str:pk>/', views.taskdetail, name="task-detail"),
 	path('task-create/', views.taskcreate, name="task-create"),
 
-	# path('task-update/<str:pk>/', views.taskUpdate, name="task-update"),
-	# path('task-delete/<str:pk>/', views.taskDelete, name="task-delete"),
+	path('task-update/<str:pk>/', views.taskupdate, name="task-update"),
+	path('task-delete/<str:pk>/', views.taskdelete, name="task-delete"),
     
 ]
