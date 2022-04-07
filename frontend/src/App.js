@@ -24,7 +24,8 @@ class App extends React.Component {
       this.handleChangeP = this.handleChangeP.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.getCookie = this.getCookie.bind(this);
-      // this.EditTask = this.EditTask.bind(this);
+      this.EditTask = this.EditTask.bind(this); 
+      this.deleteItem = this.deleteItem.bind(this);
     }
 
     getCookie(name) {
@@ -126,6 +127,22 @@ class App extends React.Component {
       });
     }
 
+    deleteItem(task){
+      var csrftoken = this.getCookie('csrftoken');
+  
+      fetch(`http://127.0.0.1:8000/task-delete/${task.id}/`, {
+        method:'DELETE',
+        headers:{
+          'Content-type':'application/json',
+          'X-CSRFToken':csrftoken,
+        },
+      }).then((response) =>{
+  
+        this.fetchTasks();
+      });
+    }
+  
+
 
     render(){
 
@@ -159,7 +176,7 @@ class App extends React.Component {
                              <div style={{flex:1}}>
                                  <button onClick={() => self.EditTask(task)} className="btn btn-sm btn-info">Edit</button>   
                              </div>
-                             <div style={{flex:1}}>
+                             <div onClick={() => self.deleteItem(task)} style={{flex:1}}>
                              <button className="btn btn-sm btn-danger">Delete</button>
                              </div>
                            </div>
