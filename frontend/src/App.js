@@ -18,7 +18,7 @@ class App extends React.Component {
 
           },
           editing:false,
-      }
+      };
       this.fetchTasks = this.fetchTasks.bind(this);
       this.handleChangeN = this.handleChangeN.bind(this);
       this.handleChangeP = this.handleChangeP.bind(this);
@@ -101,7 +101,7 @@ class App extends React.Component {
         url = `http://localhost:8000/task-update/${ this.state.activeItems.id}/`;
         this.setState({
           editing:false
-        })
+        });
       }
       fetch(url,{
         method:'POST',
