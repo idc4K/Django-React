@@ -24,6 +24,7 @@ class App extends React.Component {
       this.handleChangeP = this.handleChangeP.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.getCookie = this.getCookie.bind(this);
+      // this.EditTask = this.EditTask.bind(this);
     }
 
     getCookie(name) {
@@ -54,7 +55,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => this.setState({
         todoList:data
-      }))
+      }));
       
     }
       
@@ -68,10 +69,15 @@ class App extends React.Component {
           ...this.state.activeItems,
           nom:value
         }
-      })
+      });
      
     }
-
+    EditTask(task){
+      this.setState({
+        activeItems:task,
+        editing:true
+      });
+    }
     handleChangeP(e){
       var name = e.target.name;
       var value = e.target.value;
@@ -82,13 +88,20 @@ class App extends React.Component {
           ...this.state.activeItems,
           prenom:value
         }
-      })
+      });
     }
     handleSubmit(e){
       e.preventDefault();
       var csrftoken = this.getCookie('csrftoken')
       console.log("ITEM:", this.state.activeItems);
       var url = 'http://localhost:8000/task-create/';
+
+      if(this.state.editing == true){
+        url = `http://localhost:8000/task-update/${ this.state.activeItems.id}/`;
+        this.setState({
+          editing:false
+        })
+      }
       fetch(url,{
         method:'POST',
         headers:{
@@ -112,9 +125,12 @@ class App extends React.Component {
         console.log('Error',error);
       });
     }
+
+
     render(){
 
       var tasks = this.state.todoList;
+      var self = this;
       return(
         <div className='conatiner'>
             <div className='task-container'>
@@ -141,7 +157,7 @@ class App extends React.Component {
                                <span>{task.nom} - {task.prenom}</span>
                              </div>
                              <div style={{flex:1}}>
-                                 <button className="btn btn-sm btn-info">Edit</button>  
+                                 <button onClick={() => self.EditTask(task)} className="btn btn-sm btn-info">Edit</button>   
                              </div>
                              <div style={{flex:1}}>
                              <button className="btn btn-sm btn-danger">Delete</button>

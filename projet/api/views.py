@@ -39,6 +39,7 @@ def taskcreate(request):
         donnee.save()
     return Response(donnee.data)
 
+@api_view(['POST'])
 def taskupdate(request, pk):
 	donnee = Table.objects.get(id=pk)
 	serializer = OptionSerializer(instance=donnee, data=request.data)
