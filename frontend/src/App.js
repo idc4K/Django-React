@@ -93,7 +93,7 @@ class App extends React.Component {
     }
     handleSubmit(e){
       e.preventDefault();
-      var csrftoken = this.getCookie('csrftoken')
+      var csrftoken = this.getCookie('csrftoken');
       console.log("ITEM:", this.state.activeItems);
       var url = 'http://localhost:8000/task-create/';
 
